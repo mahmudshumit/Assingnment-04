@@ -51,7 +51,7 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class <span id="firstclass-total">$150</span></label>
-                    <input id="firstclass-count" class="inp-style inp-width" type="number" name="" value="1">
+                    <input id="firstclass-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
 
@@ -63,7 +63,7 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy <span id="economy-total">$100</span></label>
-                    <input id="economy-count" class="inp-style inp-width" type="number" name="" value="1">
+                    <input id="economy-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
                     <button onclick="ticketChange('economy',true);">+ </button>
@@ -76,7 +76,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p id="sub-total">$000</p>
                     </div>
                 </div>
 
@@ -85,7 +85,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p id="vat-amount">$00</p>
                     </div>
                 </div>
                 <hr>
@@ -94,7 +94,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p id="total">$000</p>
                     </div>
                 </div>
             </div>
@@ -147,6 +147,29 @@
             }
 
             document.getElementById(ticket + "-total").innerText = '$' + ticketTotal;
+            calculateTotal();
+        }
+        function calculateTotal(){
+          
+            const firstclassCount = getInputvalue("firstclass");
+            const economyCount = getInputvalue("economy");
+            
+            const subTotal = firstclassCount * 150 + economyCount*100;
+            document.getElementById("sub-total").innerText = '$' + subTotal;
+
+            const vat = subTotal*0.1;
+            document.getElementById("vat-amount").innerText = '$' + vat;
+            const grandTotal =  subTotal +vat;
+            document.getElementById("total").innerText = '$' + grandTotal;
+
+        }
+
+        function getInputvalue(ticket){
+            const ticketInput = document.getElementById(ticket + "-count");
+            const ticketCount = parseInt(ticketInput.value);
+            return ticketCount;
+
+
         }
 
 
